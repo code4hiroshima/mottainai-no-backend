@@ -9,8 +9,9 @@ const sheetSet = {
     'lossNon': '食品ロス削減協力店'
 }
 
-const spreadSheetKey = process.env.SPREAD_SHEET_KEY;
-const credentialFile = process.env.CREDENTIAL_FILE;
+const config = require('./.config.js')
+const spreadSheetKey = config.spreadSheetKey;
+const credentialFile = './credentials.json';
 
 const getResponse = (code, body) => {
     return {
@@ -97,6 +98,7 @@ const getFromSpread = (params, callback) => {
     });
 };
 
+module.exports.getFromSpread = getFromSpread;
 module.exports.handler = (event, context, callback) => {
     console.log(event);
     let q = event.body.split('&');
@@ -114,3 +116,17 @@ module.exports.handler = (event, context, callback) => {
         callback(null, getResponse(400,'dataType is missing.'));
     }
 };
+module.exports.function = (req, res) => {
+  if (req.body.dataType) {
+    getFromSpread(req.body, (_, value) => {
+      res.status(value.statusCode);
+      Object.keys(value.headers).map((key) => {
+        res.append(key, value.headers[key])
+        return;
+      });
+      res.send(value.body);
+    })
+  } else {
+    res.status(400).send("dataType is missig");
+  }
+}
