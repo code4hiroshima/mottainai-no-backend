@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy:local": "npm run build && for endpoint in kodomo_shokudo food_bank loss_non; do functions-emulator deploy $endpoint --trigger-http; done",
+    "build": "cd src && babel *.js -s true --compact inline -d ../dist"
   },
   "author": "Code for Hiroshima / M.Ando",
   "license": "MIT",
@@ -16,6 +18,8 @@
     "google-spreadsheet": "^2.0.4"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
     "eslint": "^4.17.0",
     "eslint-plugin-prettier": "^2.6.0",
     "prettier": "^1.10.2"

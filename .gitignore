@@ -6,6 +6,6 @@ credentials.json
 package-lock.json
 test.*
 
-*.zip
+dist
 
-key.json
+*.zip
