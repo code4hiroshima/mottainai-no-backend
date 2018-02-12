@@ -75,7 +75,7 @@ const getFromSpread = (params, callback) => {
   return async.series(
     [
       function setAuth(step) {
-        var creds = require('./' + credentialFile);
+        const creds = require('./' + credentialFile);
         doc.useServiceAccountAuth(creds, step);
       },
       function getInfoAndWorksheets(step) {
@@ -86,7 +86,7 @@ const getFromSpread = (params, callback) => {
           });
         });
       },
-      function workingWithRows(step) {
+      function workingWithRows() {
         // google provides some query options
         let offset = 1;
         let limit = 100;
@@ -111,7 +111,7 @@ module.exports.handler = (event, context, callback) => {
   let params = {};
   q.map(s => {
     let qs = s.split('=');
-    if (qs.length == 2) {
+    if (qs.length === 2) {
       params[qs[0]] = qs[1];
     }
   });
@@ -128,7 +128,6 @@ module.exports.function = (req, res) => {
       res.status(value.statusCode);
       Object.keys(value.headers).map(key => {
         res.append(key, value.headers[key]);
-        return;
       });
       res.send(value.body);
     });
