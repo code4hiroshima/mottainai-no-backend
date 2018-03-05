@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy:local":
-      "functions-emulator start && npm run build && for endpoint in kodomo_shokudo food_bank loss_non; do functions-emulator deploy $endpoint --trigger-http; done",
+    "deploy": "npm run build && scripts/deploy",
+    "deploy:local": "npm run build && scripts/deploy-local",
     "build": "cd src && babel *.js -s true --compact inline -d ../dist"
   },
   "author": "Code for Hiroshima / M.Ando",

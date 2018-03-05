@@ -2,7 +2,7 @@ node_modules
 .idea
 
 credentials.json
-.config.js
+config.js
 package-lock.json
 test.*
 
@@ -10,3 +10,4 @@ dist
 
 *.zip
 .envrc
+*.log
