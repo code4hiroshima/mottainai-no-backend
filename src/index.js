@@ -4,16 +4,15 @@
 const async = require('async');
 const GoogleSpreadsheet = require('google-spreadsheet');
 
-
 const getResponse = (code, body) => {
   return {
     statusCode: code,
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Credentials': 'true'
+      'Access-Control-Allow-Credentials': 'true',
     },
-    body: body
+    body: body,
   };
 };
 
@@ -37,9 +36,9 @@ const getData = (sheet, offset, limit, result, fn) => {
     {
       offset: offset,
       limit: limit,
-      orderby: 'col1'
+      orderby: 'col1',
     },
-    function (err, rows) {
+    function(err, rows) {
       // console.log(rows[0]);
       rows.map(row => {
         if (row['経度'] && row['緯度']) {
@@ -47,7 +46,7 @@ const getData = (sheet, offset, limit, result, fn) => {
             name: row['名称'],
             latitude: row['緯度'],
             longitude: row['経度'],
-            url: row['紹介hp']
+            url: row['紹介hp'],
           });
         }
       });
@@ -57,7 +56,7 @@ const getData = (sheet, offset, limit, result, fn) => {
         offset += limit;
         getData(sheet, offset, limit, result, fn);
       }
-    }
+    },
   );
 };
 
@@ -70,7 +69,7 @@ const getFromSpread = (dataType, spreadSheetKey, credential, callback) => {
         doc.useServiceAccountAuth(credential, step);
       },
       function getInfoAndWorksheets(step) {
-        doc.getInfo(function (err, info) {
+        doc.getInfo(function(err, info) {
           scanSheets(info, dataType, result => {
             sheet = result;
             step();
@@ -85,18 +84,18 @@ const getFromSpread = (dataType, spreadSheetKey, credential, callback) => {
         getData(sheet, offset, limit, result, result => {
           callback(null, getResponse(200, JSON.stringify(result)));
         });
-      }
+      },
     ],
-    function (err) {
+    function(err) {
       if (err) {
         console.log('Error: ' + err);
       }
-    }
+    },
   );
 };
 
 module.exports = (config, credential) => {
-  const build = (dataType) => (req, res) => {
+  const build = dataType => (req, res) => {
     const spreadSheetKey = config.spreadSheetKey;
     getFromSpread(dataType, spreadSheetKey, credential, (_, value) => {
       res.status(value.statusCode);
@@ -131,4 +130,3 @@ module.exports.handler = (event, context, callback) => {
     callback(null, getResponse(400, 'dataType is missing.'));
   }
 };
-
