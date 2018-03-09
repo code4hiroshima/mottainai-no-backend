@@ -1,8 +1,10 @@
 /* eslint-disable no-console */
+import { google } from 'googleapis';
+import Promise from 'bluebird';
+const sheets = google.sheets('v4');
 
 // dependencies
 const async = require('async');
-const GoogleSpreadsheet = require('google-spreadsheet');
 
 const getResponse = (code, body) => {
   return {
@@ -61,7 +63,7 @@ const getData = (sheet, offset, limit, result, fn) => {
 };
 
 const getFromSpread = (dataType, spreadSheetKey, credential, callback) => {
-  let doc = new GoogleSpreadsheet(spreadSheetKey);
+  let doc = spreadsheet.get(spreadSheetKey);
   let sheet;
   return async.series(
     [

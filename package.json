@@ -16,7 +16,9 @@
   },
   "dependencies": {
     "async": "^2.6.0",
-    "google-spreadsheet": "^2.0.4"
+    "bluebird": "^3.5.1",
+    "google-spreadsheet": "^2.0.4",
+    "googleapis": "^27.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
