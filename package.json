@@ -7,22 +7,23 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "deploy": "npm run build && scripts/deploy",
     "deploy:local": "npm run build && scripts/deploy-local",
-    "build": "cd src && babel *.js -s true --compact inline -d ../dist"
+    "build": "cd src && babel *.js **/*.js -s true --compact inline -d ../dist"
   },
   "author": "Code for Hiroshima / M.Ando",
   "license": "MIT",
   "engines": {
-    "node": "8.9.4"
+    "node": "6.11.5"
   },
   "dependencies": {
+    "@google-cloud/functions-emulator": "^1.0.0-beta.4",
     "async": "^2.6.0",
     "bluebird": "^3.5.1",
-    "google-spreadsheet": "^2.0.4",
     "googleapis": "^27.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-eslint": "7",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "eslint": "^4.17.0",
     "eslint-plugin-prettier": "^2.6.0",
