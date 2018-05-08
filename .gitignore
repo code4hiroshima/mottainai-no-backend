@@ -1,7 +1,10 @@
 node_modules
 
 credentials.json
+.config.js
 package-lock.json
 test.*
 
 *.zip
+
+key.json

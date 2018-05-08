@@ -8,6 +8,7 @@
   },
   "author": "Code for Hiroshima / M.Ando",
   "license": "MIT",
+  "engines" : { "node" : "6.11.5" },
   "dependencies": {
     "async": "^2.6.0",
     "google-spreadsheet": "^2.0.4"
