@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -eu
+
+functions-emulator start
+
+for endpoint in kodomo_shokudo food_bank loss_non
+do
+  functions-emulator deploy $endpoint --trigger-http
+done

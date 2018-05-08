@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -eu
+
+for endpoint in kodomo_shokudo food_bank loss_non
+do
+  gcloud beta functions deploy $endpoint --trigger-http
+done

@@ -4,13 +4,25 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "npm run build && scripts/deploy",
+    "deploy:local": "npm run build && scripts/deploy-local",
+    "build": "cd src && babel *.js -s true --compact inline -d ../dist"
   },
   "author": "Code for Hiroshima / M.Ando",
   "license": "MIT",
-  "engines" : { "node" : "6.11.5" },
+  "engines": {
+    "node": "6.11.5"
+  },
   "dependencies": {
     "async": "^2.6.0",
     "google-spreadsheet": "^2.0.4"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "eslint": "^4.17.0",
+    "eslint-plugin-prettier": "^2.6.0",
+    "prettier": "^1.10.2"
   }
 }
